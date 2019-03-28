@@ -17,7 +17,11 @@ public class Score : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (SceneManager.GetActiveScene().name == "MainScene") kilometers++;
-        if (SceneManager.GetActiveScene().name == "MenuScene") kilometers = 0;
+
 	}
+
+    public static void addScore(float num)
+    {
+        kilometers = num;
+    }
 }

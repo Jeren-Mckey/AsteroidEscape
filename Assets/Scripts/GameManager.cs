@@ -13,11 +13,13 @@ public class GameManager : MonoBehaviour
     public GameObject hugeAsteroid;
     public GameObject explodingAsteroid;
     public GameObject fastAsteroid;
+    private float kilometers;
     public float speed;
 
     // Use this for initialization
     void Start()
     {
+        kilometers = 0;
         startTime = Time.time;
         elapsedTime = .5f;
     }
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
             spawn();
             startTime = Time.time;
         }
+        kilometers++;
+        addKilometers(kilometers);
     }
 
     void spawn()
@@ -37,7 +41,7 @@ public class GameManager : MonoBehaviour
         float spawnY = Random.Range
             (Camera.main.ScreenToWorldPoint(new Vector2(0, 10)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height - 10)).y);
         float spawnX = Random.Range
-            (Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 100, 0)).x, Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 100, 0)).x);
+            (Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 200, 0)).x, Camera.main.ScreenToWorldPoint(new Vector2(Screen.width + 200, 0)).x);
         Vector2 spawnPosition = new Vector2(spawnX, spawnY);
         float asteroid = Random.Range(1, 4);
         if (asteroid >= 4)
@@ -56,5 +60,10 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(hugeAsteroid, spawnPosition, Quaternion.identity).SendMessage("startMove", speed);
         }
+    }
+
+    public static void addKilometers(float kilometers)
+    {
+        Score.addScore(kilometers);
     }
 }
