@@ -9,6 +9,8 @@ public class EndGame : MonoBehaviour {
     private float elapsedTime;
     private bool notStarted;
     private bool visible;
+    public GameObject ship1;
+    public GameObject ship2;
     public GameObject explosion;
 
     // Use this for initialization
@@ -34,10 +36,11 @@ public class EndGame : MonoBehaviour {
                 startTime = Time.time;
                 elapsedTime = Time.time;
                 notStarted = false;
+                if (ship1 != null) Destroy(ship1);
+                else if (ship2 != null) Destroy(ship2);
             }
             if (Time.time - elapsedTime <= 2.5f)
             {
-                
                 GetComponent<Rigidbody2D>().isKinematic = true;
                 if (Time.time - startTime >= .2f && visible == true)
                 {

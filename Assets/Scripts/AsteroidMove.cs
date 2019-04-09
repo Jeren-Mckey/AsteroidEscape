@@ -19,7 +19,8 @@ public class AsteroidMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time - startTime >= 5) deleteAsteroid();
+        if (Time.time - startTime >= 5 && gameObject.tag != "slowAsteroid") deleteAsteroid();
+        else if (gameObject.tag == "slowAsteroid" && Time.time - startTime >= 20f) deleteAsteroid();
         transform.position += movementVector * Time.deltaTime;
     }
 

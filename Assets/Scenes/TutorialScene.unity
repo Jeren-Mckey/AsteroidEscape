@@ -739,9 +739,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "You have entered one of the most dangerous asteroid fields in the galaxy!
-    Your goal: Survive for as long as possible! \n\nUse the arrow keys to move your
-    spaceship and avoid the rockets. If you get hit by any of the asteroid 3 times
-    than your ship will explode.\n\nHow far will you go?"
+    Your goal: Survive for as long as possible! \n\nHow far will you go?"
 --- !u!222 &1624176335
 CanvasRenderer:
   m_ObjectHideFlags: 0

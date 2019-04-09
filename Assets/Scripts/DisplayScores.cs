@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class DisplayScores : MonoBehaviour {
 
@@ -17,6 +18,10 @@ public class DisplayScores : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		
+		if (SceneManager.GetActiveScene().name == "MainScene")
+        {
+            score = (long)Score.kilometers * 20;
+            text.text = score.ToString();
+        }
 	}
 }
