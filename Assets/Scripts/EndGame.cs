@@ -10,7 +10,9 @@ public class EndGame : MonoBehaviour {
     private bool notStarted;
     private bool visible;
     public GameObject ship1;
+    private int lifePoints;
     public GameObject ship2;
+    public GameObject[] spareParts;
     public GameObject explosion;
 
     // Use this for initialization
@@ -19,6 +21,11 @@ public class EndGame : MonoBehaviour {
         currentLife = lives;
         visible = true;
         notStarted = true;
+        lifePoints = 0;
+        for (int i = 0; i < spareParts.Length; i++)
+        {
+            spareParts[i].GetComponent<Renderer>().enabled = false;
+        }
 	}
 	
 	// Update is called once per frame
@@ -36,8 +43,8 @@ public class EndGame : MonoBehaviour {
                 startTime = Time.time;
                 elapsedTime = Time.time;
                 notStarted = false;
-                if (ship1 != null) Destroy(ship1);
-                else if (ship2 != null) Destroy(ship2);
+                if (ship1.GetComponent<Renderer>().enabled == true) ship1.GetComponent<Renderer>().enabled = false;
+                else if (ship2.GetComponent<Renderer>().enabled == true) ship2.GetComponent<Renderer>().enabled = false;
             }
             if (Time.time - elapsedTime <= 2.5f)
             {
@@ -55,22 +62,38 @@ public class EndGame : MonoBehaviour {
                     visible = true;
                 }
             }
-            else
+            else if (Time.time - elapsedTime > 2.5f)
             {
-                elapsedTime = Time.time;
-                GetComponent<Rigidbody2D>().isKinematic = false;
                 GetComponent<Renderer>().enabled = true;
+                visible = true;
+                GetComponent<Rigidbody2D>().isKinematic = false;
                 notStarted = true;
                 currentLife--;
             }
+        }
+        if (lifePoints == 5 && lives != 3)
+        {
+            lives++;
+            currentLife++;
+            if (lives == 2) ship2.GetComponent<Renderer>().enabled = true;
+            else ship1.GetComponent<Renderer>().enabled = true;
+            lifePoints = 0;
+            for (int i = 0; i < spareParts.Length; i++) spareParts[i].GetComponent<Renderer>().enabled = false;
         }
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.collider.tag != "Wall")
+        if (col.collider.tag != "Wall" && col.collider.tag != "point")
         {
             lives--;
+        }
+        else if (col.collider.tag == "point")
+        {
+            lifePoints++;
+            spareParts[lifePoints - 1].GetComponent<Renderer>().enabled = true;
+            GameObject point = col.gameObject;
+            Destroy(point);
         }
     }
  

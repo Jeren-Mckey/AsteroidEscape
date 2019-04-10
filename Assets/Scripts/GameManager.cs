@@ -8,12 +8,14 @@ public class GameManager : MonoBehaviour
     private float elapsedTime;
     private float startTime1;
     private float startTime2;
+    private float pointElapsedTime;
     public GameObject smallAsteroid;
     public GameObject mediumAsteroid;
     public GameObject largeAsteroid;
     public GameObject hugeAsteroid;
     public GameObject slowAsteroid;
     public GameObject fastAsteroid;
+    public GameObject spacePart;
     private float kilometers;
     private float hardElapsedTime;
     public float speed;
@@ -24,8 +26,8 @@ public class GameManager : MonoBehaviour
     {
         kilometers = 0;
         startTime1 = Time.time;
-        elapsedTime = .5f;
-        hardElapsedTime = 4f;
+        elapsedTime = .65f;
+        hardElapsedTime = 5f;
         startHard = false;
     }
 
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     void spawn()
     {
+        Random.InitState(System.DateTime.Now.TimeOfDay.Milliseconds);
         float spawnY = Random.Range
             (Camera.main.ScreenToWorldPoint(new Vector2(0, 10)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height - 10)).y);
         float spawnX = Random.Range
@@ -84,6 +87,7 @@ public class GameManager : MonoBehaviour
 
     public void spawnHard()
     {
+        Random.InitState(System.DateTime.Now.TimeOfDay.Seconds);
         float spawnY = Random.Range
             (Camera.main.ScreenToWorldPoint(new Vector2(0, 10)).y, Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height - 10)).y);
         float spawnX = Random.Range
@@ -98,6 +102,7 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(slowAsteroid, spawnPosition, Quaternion.identity).SendMessage("startMove", speed / (speed / 4));
         }
+        Instantiate(spacePart, spawnPosition, Quaternion.identity).SendMessage("startMove", speed - .5f);
     }
 
     public static void addKilometers(float kilometers)

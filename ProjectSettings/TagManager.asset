@@ -7,6 +7,7 @@ TagManager:
   - Wall
   - slowAsteroid
   - fastAsteroid
+  - point
   layers:
   - Default
   - TransparentFX
