@@ -66,6 +66,7 @@ public class EndGame : MonoBehaviour {
             {
                 GetComponent<Renderer>().enabled = true;
                 visible = true;
+                if (!GetComponent<Renderer>().IsVisibleFrom(Camera.main)) transform.position = new Vector3(0, 0, 0);
                 GetComponent<Rigidbody2D>().isKinematic = false;
                 notStarted = true;
                 currentLife--;
