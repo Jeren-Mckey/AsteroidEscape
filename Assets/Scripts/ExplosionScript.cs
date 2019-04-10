@@ -8,6 +8,7 @@ public class ExplosionScript : MonoBehaviour {
     private Animator anim;
     private AnimatorStateInfo info;
     private bool hasPlayed;
+    private bool gameOver;
 	// Use this for initialization
 	void Start ()
     {
@@ -24,9 +25,18 @@ public class ExplosionScript : MonoBehaviour {
         {
             hasPlayed = true;
         }
-        if (info.IsName("Default") && hasPlayed)
+        if (info.IsName("Default") && hasPlayed && gameOver)
         {
             SceneManager.LoadScene("EndScene");
         }
+        else if (info.IsName("Default") && hasPlayed && !gameOver)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void secondary(bool val)
+    {
+        gameOver = val;
     }
 }

@@ -14,6 +14,7 @@ public class EndGame : MonoBehaviour {
     public GameObject ship2;
     public GameObject[] spareParts;
     public GameObject explosion;
+    public GameObject explosion2;
 
     // Use this for initialization
     void Start ()
@@ -33,13 +34,15 @@ public class EndGame : MonoBehaviour {
     {
 	    if (lives == 0)
         {
-            Instantiate(explosion, transform.position, Quaternion.identity);
+            Instantiate(explosion, transform.position, Quaternion.identity).SendMessage("secondary", true);
             Destroy(gameObject);
         }
         else if (currentLife > lives)
         {
+            
             if (notStarted)
             {
+                Instantiate(explosion2, transform.position, Quaternion.identity).SendMessage("secondary", false);
                 startTime = Time.time;
                 elapsedTime = Time.time;
                 notStarted = false;
